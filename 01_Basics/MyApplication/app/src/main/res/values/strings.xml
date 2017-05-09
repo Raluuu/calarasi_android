@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">01_HelloWorld</string>
+    <string name="text_view_email">Write an email</string>
+</resources>
