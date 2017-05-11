@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">01_OptionsMenu</string>
+    <string name="action_new_message">New message</string>
+    <string name="action_take_photo">Take a photo</string>
+</resources>
