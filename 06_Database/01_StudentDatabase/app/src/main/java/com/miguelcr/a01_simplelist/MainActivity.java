@@ -21,6 +21,7 @@ import io.realm.Realm;
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
     ListView listView;
     List<Student> students;
+    MyStudentAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +41,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         students = realm.where(Student.class).findAll();
 
         // 3. Declare the Adapter
-        MyStudentAdapter adapter = new MyStudentAdapter(
+        adapter = new MyStudentAdapter(
                 this,
                 R.layout.student_item,
                 students
@@ -98,7 +99,20 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         }
     }
 
-    
+    @Override
+    protected void onResume() {
+        super.onResume();
 
+        // Refresh the list to show the new students added
+        Realm.init(this);
+        Realm realm = Realm.getDefaultInstance();
+        students = new ArrayList<>();
+        students.clear();
+        students = realm.where(Student.class).findAll();
+
+        // We notify to the Adapter that we have new students,
+        // and it refresh the list.
+        adapter.notifyDataSetChanged();
+    }
 
 }
